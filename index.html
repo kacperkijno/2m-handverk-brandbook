@@ -57,7 +57,7 @@
       linear-gradient(var(--sement) 1px, transparent 1px) 0 0/100% 44px,
       linear-gradient(90deg, var(--sement) 1px, transparent 1px) 0 0/44px 100%;
       border:1px solid var(--sement);padding:72px;display:flex;justify-content:center;align-items:center;}
-  .markstage img{height:210px;}
+  .markstage img{max-height:210px;max-width:100%;height:auto;}
 
   /* 02 konstrukcja - obraz w 100%, nie powiekszany, ramka + biale tlo */
   .constr{border:1px solid var(--sement);background:#fff;padding:40px;display:flex;justify-content:center;}
@@ -72,10 +72,11 @@
   .lk .cn .l{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--kull);font-weight:700;}
   .lk .cn .r{font-size:11px;letter-spacing:.10em;color:var(--betong);}
   .lk .box{border:1px solid var(--sement);background:#fff;padding:44px;display:flex;align-items:center;justify-content:center;}
-  .lk.h .box img{height:88px;}
+  .lk .box img{max-width:100%;height:auto;}
+  .lk.h .box img{max-height:88px;}
   .lk-row{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
-  .lk.v .box img{height:170px;}
-  .lk.s .box img{height:120px;}
+  .lk.v .box img{max-height:170px;}
+  .lk.s .box img{max-height:120px;}
   .lk-row .box{flex:1;}
 
   /* 04 pole ochronne + rozmiar */
@@ -171,10 +172,12 @@
   @media (max-width:760px){
     .sheet{padding:0 24px;} .cover{margin:0 -24px;padding:48px 24px;}
     .toc,.dont{grid-template-columns:1fr 1fr;}
-    .lk-row,.air,.pn,.typo,.mockups{grid-template-columns:1fr;}
+    .lk-row,.air,.pn,.typo,.mockups,.files{grid-template-columns:1fr;}
     .mockups .wide{grid-column:auto;}
     .pal{grid-template-columns:repeat(3,1fr);}
     .vars{grid-template-columns:repeat(2,1fr);}
+    .minrow{flex-wrap:wrap;gap:28px 24px;}
+    .markstage{padding:36px;} .lk .box{padding:28px;}
   }
 </style>
 </head>
