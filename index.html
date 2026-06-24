@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2M Håndverk AS - Identyfikacja wizualna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --kull:#1C1B19; --kalk:#FAF8F4; --sement:#E7E3DC; --betong:#8A867E;
+    --stein:#3B3A37; --oransje:#E5621E; --oransje-m:#C04E14;
+    --rod:#D33A2C;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--kalk);color:var(--kull);font-family:'Hanken Grotesk',sans-serif;
+       -webkit-font-smoothing:antialiased;}
+  .sheet{max-width:1180px;margin:0 auto;padding:0 64px;}
+
+  /* etykiety techniczne */
+  .lbl{font-size:11px;letter-spacing:.20em;text-transform:uppercase;color:var(--betong);font-weight:600;}
+  .lbl .o{color:var(--oransje);}
+  .num{font-size:11px;letter-spacing:.20em;text-transform:uppercase;color:var(--oransje);font-weight:700;}
+
+  /* sekcja */
+  section{border-top:1px solid var(--betong);padding:64px 0;}
+  .sec-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:48px;}
+  .sec-head .t{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--kull);font-weight:700;}
+  .cap{font-size:13px;line-height:1.65;color:var(--stein);max-width:60ch;margin-top:24px;}
+  .cap b{color:var(--kull);font-weight:700;}
+
+  /* COVER */
+  .cover{background:var(--kull);color:var(--kalk);margin:0 -64px;padding:72px 64px 64px;border:none;}
+  .cover .topline{display:flex;justify-content:space-between;align-items:baseline;
+                  border-bottom:1px solid rgba(250,248,244,.2);padding-bottom:16px;margin-bottom:72px;}
+  .cover .topline .lbl{color:rgba(250,248,244,.7);}
+  .cover .hero{display:flex;justify-content:center;padding:24px 0 64px;}
+  .cover .hero img{width:min(640px,82%);height:auto;}
+  .cover .meta{display:flex;justify-content:space-between;align-items:flex-end;
+               border-top:1px solid rgba(250,248,244,.2);padding-top:28px;}
+  .cover .meta .tag{font-size:clamp(22px,3vw,40px);font-weight:900;letter-spacing:-.02em;line-height:1;}
+  .cover .meta .tag .o{color:var(--oransje);}
+  .cover .meta .desc{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(250,248,244,.65);text-align:right;line-height:1.9;}
+
+  /* spis tresci */
+  .toc{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 40px;}
+  .toc a{display:flex;justify-content:space-between;text-decoration:none;color:var(--kull);
+         border-bottom:1px solid var(--sement);padding:10px 0;font-size:14px;font-weight:600;}
+  .toc a .n{color:var(--oransje);font-weight:700;}
+  .toc a:hover{color:var(--oransje);}
+
+  img{display:block;}
+
+  /* 01 znak */
+  .markstage{position:relative;background:
+      linear-gradient(var(--sement) 1px, transparent 1px) 0 0/100% 44px,
+      linear-gradient(90deg, var(--sement) 1px, transparent 1px) 0 0/44px 100%;
+      border:1px solid var(--sement);padding:72px;display:flex;justify-content:center;align-items:center;}
+  .markstage img{height:210px;}
+
+  /* 02 konstrukcja - obraz w 100%, nie powiekszany, ramka + biale tlo */
+  .constr{border:1px solid var(--sement);background:#fff;padding:40px;display:flex;justify-content:center;}
+  .constr img{max-width:100%;height:auto;}
+  .legend{display:flex;flex-wrap:wrap;gap:28px;margin-top:24px;}
+  .legend div{font-size:12px;color:var(--stein);}
+  .legend b{color:var(--oransje);}
+
+  /* 03 lockup */
+  .lk{display:flex;flex-direction:column;gap:16px;margin-bottom:40px;}
+  .lk .cn{display:flex;justify-content:space-between;align-items:baseline;}
+  .lk .cn .l{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--kull);font-weight:700;}
+  .lk .cn .r{font-size:11px;letter-spacing:.10em;color:var(--betong);}
+  .lk .box{border:1px solid var(--sement);background:#fff;padding:44px;display:flex;align-items:center;justify-content:center;}
+  .lk.h .box img{height:88px;}
+  .lk-row{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  .lk.v .box img{height:170px;}
+  .lk.s .box img{height:120px;}
+  .lk-row .box{flex:1;}
+
+  /* 04 pole ochronne + rozmiar */
+  .air{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;}
+  .air .box{border:1px solid var(--sement);background:#fff;padding:28px;display:flex;align-items:center;justify-content:center;aspect-ratio:5/4;}
+  .air .box img{max-width:100%;max-height:100%;width:auto;height:auto;}
+  .minrow{display:flex;align-items:flex-end;gap:40px;margin-top:24px;}
+  .minrow .mi{display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .minrow .mi img{height:auto;}
+  .minrow .m1 img{width:150px;} .minrow .m2 img{width:64px;} .minrow .m3 img{width:30px;}
+  .minrow .mc{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--betong);}
+
+  /* 05 warianty */
+  .pn{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:32px;}
+  .pn .tile{aspect-ratio:1.5/1;display:flex;align-items:center;justify-content:center;border:1px solid var(--sement);border-radius:4px;}
+  .pn .tile img{width:62%;height:auto;}
+  .pn .tile.lys{background:var(--kalk);}
+  .pn .tile.mork{background:var(--kull);border-color:var(--kull);}
+  .vlabel{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--betong);margin-top:10px;}
+  .vars{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .var{aspect-ratio:1/1;border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;border:1px solid var(--sement);}
+  .var img{width:54%;height:auto;}
+  .var .name{font-size:10px;letter-spacing:.14em;text-transform:uppercase;}
+  .var.kalk{background:var(--kalk);} .var.kalk .name{color:var(--betong);}
+  .var.kull{background:var(--kull);} .var.kull .name{color:rgba(250,248,244,.6);}
+  .var.ora{background:var(--oransje);border-color:var(--oransje);} .var.ora .name{color:rgba(250,248,244,.85);}
+  .var.sem{background:var(--sement);} .var.sem .name{color:var(--betong);}
+
+  /* 06 bledne uzycie */
+  .dont{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .dont .d{border:1px solid var(--sement);border-radius:4px;overflow:hidden;background:#fff;}
+  .dont .frame{aspect-ratio:1.5/1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+  .dont .frame img{width:58%;height:auto;}
+  .dont .x{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;background:var(--rod);
+           color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1;}
+  .dont .dc{font-size:12px;color:var(--stein);padding:12px 14px;border-top:1px solid var(--sement);font-weight:600;}
+  .d-stretch img{transform:scaleX(1.55);}
+  .d-rotate img{transform:rotate(-13deg);}
+  .d-color img{filter:invert(34%) sepia(96%) saturate(1500%) hue-rotate(178deg);}
+  .d-busy{background:repeating-linear-gradient(45deg,#bdb8ae 0 14px,#9a958c 14px 28px);}
+  .d-shadow img{filter:drop-shadow(7px 9px 5px rgba(0,0,0,.45));}
+  .d-squeeze img{transform:scaleY(1.5);}
+
+  /* 07 kolory */
+  .pal{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--sement);}
+  .ch{height:180px;display:flex;flex-direction:column;justify-content:flex-end;padding:16px 14px;}
+  .ch .cn{font-size:14px;font-weight:700;}
+  .ch .hex{font-size:11px;letter-spacing:.08em;margin-top:3px;opacity:.85;}
+  .ch .us{font-size:10px;margin-top:8px;line-height:1.4;opacity:.75;}
+  .ch.kull{background:var(--kull);color:var(--kalk);}
+  .ch.stein{background:var(--stein);color:var(--kalk);}
+  .ch.betong{background:var(--betong);color:var(--kalk);}
+  .ch.sement{background:var(--sement);color:var(--kull);}
+  .ch.kalk{background:var(--kalk);color:var(--kull);border-left:1px solid var(--sement);}
+  .ch.ora{background:var(--oransje);color:var(--kalk);}
+  .ratio{margin-top:20px;font-size:12px;color:var(--betong);letter-spacing:.04em;}
+  .ratio b{color:var(--oransje);}
+
+  /* 08 typografia */
+  .typo{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start;}
+  .aa{font-size:clamp(150px,19vw,250px);font-weight:900;line-height:.8;letter-spacing:-.04em;}
+  .aa .o{color:var(--oransje);}
+  .weights{margin-top:24px;display:flex;flex-direction:column;gap:8px;}
+  .weights span{font-size:18px;}
+  .w4{font-weight:400;} .w5{font-weight:500;} .w7{font-weight:700;} .w9{font-weight:900;}
+  .scale > div{padding:14px 0;border-bottom:1px solid var(--sement);}
+  .scale .h1{font-size:54px;font-weight:900;letter-spacing:-.02em;line-height:1;}
+  .scale .h1 .o{color:var(--oransje);}
+  .scale .h2{font-size:32px;font-weight:800;letter-spacing:-.01em;}
+  .scale .bd{font-size:17px;font-weight:400;line-height:1.6;color:var(--stein);max-width:48ch;}
+  .scale .lab{font-size:12px;font-weight:600;letter-spacing:.20em;text-transform:uppercase;color:var(--betong);}
+  .scale .meta-r{font-size:11px;color:var(--betong);float:right;font-weight:500;letter-spacing:.1em;}
+
+  /* 09 lista plikow */
+  .files{display:grid;grid-template-columns:1fr 1fr;gap:8px 40px;}
+  .files .f{display:flex;justify-content:space-between;border-bottom:1px solid var(--sement);padding:11px 0;font-size:13px;}
+  .files .f .nm{font-weight:600;}
+  .files .f .ty{color:var(--betong);font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+  .todo{margin-top:28px;background:var(--sement);border-left:3px solid var(--oransje);padding:18px 22px;font-size:13px;line-height:1.6;color:var(--stein);}
+  .todo b{color:var(--kull);}
+
+  /* 10 mockupy */
+  .mockups{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  .mockups .m{border:1px solid var(--sement);border-radius:4px;overflow:hidden;background:#fff;}
+  .mockups .m img{width:100%;height:100%;object-fit:cover;display:block;aspect-ratio:4/3;}
+  .mockups .m .mcap{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--betong);padding:11px 14px;border-top:1px solid var(--sement);font-weight:600;}
+  .mockups .wide{grid-column:span 2;}
+  .mockups .wide img{aspect-ratio:16/7;}
+
+  .foot{border-top:1px solid var(--betong);padding:32px 0 80px;display:flex;justify-content:space-between;}
+  .foot span{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--betong);}
+
+  @media (max-width:760px){
+    .sheet{padding:0 24px;} .cover{margin:0 -24px;padding:48px 24px;}
+    .toc,.dont{grid-template-columns:1fr 1fr;}
+    .lk-row,.air,.pn,.typo,.mockups{grid-template-columns:1fr;}
+    .mockups .wide{grid-column:auto;}
+    .pal{grid-template-columns:repeat(3,1fr);}
+    .vars{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- COVER -->
+  <section class="cover">
+    <div class="topline">
+      <span class="lbl">2M Håndverk AS</span>
+      <span class="lbl">Identyfikacja wizualna · <span class="o">v01</span> · 2026</span>
+    </div>
+    <div class="hero"><img src="01_logo/PNG/2m-logo-vertical-white.png" alt="2M Håndverk AS"></div>
+    <div class="meta">
+      <span class="tag">Hele jobben,<br>ett firma<span class="o">.</span></span>
+      <span class="desc">Remonty · Ciesielstwo · Dekarstwo · Blacharstwo<br>Bærum · Asker · Oslo</span>
+    </div>
+  </section>
+
+  <!-- SPIS TRESCI -->
+  <section>
+    <div class="sec-head"><span class="t">Spis treści</span><span class="num">Przegląd</span></div>
+    <nav class="toc">
+      <a href="#s01"><span>Znak</span><span class="n">01</span></a>
+      <a href="#s02"><span>Konstrukcja</span><span class="n">02</span></a>
+      <a href="#s03"><span>Lockup</span><span class="n">03</span></a>
+      <a href="#s04"><span>Pole ochronne i rozmiar</span><span class="n">04</span></a>
+      <a href="#s05"><span>Warianty kolorystyczne</span><span class="n">05</span></a>
+      <a href="#s06"><span>Błędne użycie</span><span class="n">06</span></a>
+      <a href="#s07"><span>Kolory</span><span class="n">07</span></a>
+      <a href="#s08"><span>Typografia</span><span class="n">08</span></a>
+      <a href="#s09"><span>Lista plików</span><span class="n">09</span></a>
+      <a href="#s10"><span>Zastosowania</span><span class="n">10</span></a>
+    </nav>
+  </section>
+
+  <!-- 01 ZNAK -->
+  <section id="s01">
+    <div class="sec-head"><span class="t">01 Znak</span><span class="num">Sygnet</span></div>
+    <div class="markstage"><img src="01_logo/PNG/2m-logo-mark.png" alt="2M"></div>
+    <p class="cap"><b>Geometryczny monogram „2M"</b> - dwójka i M zlewają się w jeden znak. Grube, mocne
+    formy z miękkimi, zaokrąglonymi narożnikami dają znak jednocześnie nowoczesny i solidny. Skośna
+    przekątna M nadaje dynamikę i ruch - firma, która prowadzi robotę do przodu. Cały znak zbudowany
+    jest na stałej siatce (patrz 02).</p>
+  </section>
+
+  <!-- 02 KONSTRUKCJA -->
+  <section id="s02">
+    <div class="sec-head"><span class="t">02 Konstrukcja</span><span class="num">Geometria i siatka</span></div>
+    <div class="constr"><img src="01_logo/PNG/2m-logo-construction.png" alt="Konstrukcja znaku 2M"></div>
+    <div class="legend">
+      <div><b>x</b> = jednostka bazowa siatki</div>
+      <div>Szerokość: <b>72x</b></div>
+      <div>Wysokość: <b>38x</b></div>
+      <div>Kąty: <b>12°</b> / <b>60°</b> / <b>72°</b></div>
+      <div>Promienie oparte na okręgach z siatki</div>
+    </div>
+    <p class="cap">Znaku nigdy nie odrysowujemy ręcznie. Zawsze używaj dostarczonych plików. Proporcje,
+    kąty i promienie są zablokowane na siatce, aby znak był spójny w każdym rozmiarze.</p>
+  </section>
+
+  <!-- 03 LOCKUP -->
+  <section id="s03">
+    <div class="sec-head"><span class="t">03 Lockup</span><span class="num">Układ</span></div>
+
+    <div class="lk v">
+      <div class="cn"><span class="l">Podstawowy - pionowy</span><span class="r">Większość zastosowań · pion i kwadrat</span></div>
+      <div class="box"><img src="01_logo/PNG/2m-logo-vertical.png" alt="2M Håndverk AS - pion"></div>
+    </div>
+
+    <div class="lk-row">
+      <div class="lk h">
+        <div class="cn"><span class="l">Uzupełniający - poziomy</span></div>
+        <div class="box"><img src="01_logo/PNG/2m-logo-horizontal.png" alt="2M Håndverk AS - poziom"></div>
+      </div>
+      <div class="lk s">
+        <div class="cn"><span class="l">Sygnet</span></div>
+        <div class="box"><img src="01_logo/PNG/2m-logo-mark.png" alt="2M sygnet"></div>
+      </div>
+    </div>
+    <p class="cap"><b>Pionowy</b> to wariant podstawowy - używaj go wszędzie, gdzie się da.
+    <b>Poziomy</b> stosuj na szerokich, niskich formatach (nagłówek www, oklejenie auta, szyld).
+    <b>Sygnet</b> to ikona tam, gdzie nazwa jest już znana - zdjęcie profilowe, favicon, magnesy,
+    małe powierzchnie.</p>
+  </section>
+
+  <!-- 04 POLE OCHRONNE -->
+  <section id="s04">
+    <div class="sec-head"><span class="t">04 Pole ochronne i rozmiar</span><span class="num">Strefa ochronna</span></div>
+    <div class="air">
+      <div>
+        <div class="box"><img src="01_logo/PNG/2m-logo-vertical-clearspace.png" alt="Strefa ochronna - pełne logo"></div>
+        <p class="cap">Zawsze zachowaj wolną strefę co najmniej <b>„y"</b> z każdej strony, jak pokazano.
+        Żaden tekst, obraz ani inny element nie może wejść w tę strefę.</p>
+      </div>
+      <div>
+        <div class="box"><img src="01_logo/PNG/2m-logo-mark-clearspace.png" alt="Strefa ochronna - sygnet"></div>
+        <p class="cap">Ta sama zasada dotyczy sygnetu. Więcej światła jest zawsze lepsze niż za mało.</p>
+      </div>
+    </div>
+    <div style="margin-top:40px">
+      <span class="lbl">Minimalny rozmiar</span>
+      <div class="minrow">
+        <div class="mi m1"><img src="01_logo/PNG/2m-logo-horizontal.png" alt="2M"><span class="mc">Poziomy · min 40 mm / 150 px</span></div>
+        <div class="mi m2"><img src="01_logo/PNG/2m-logo-vertical.png" alt="2M"><span class="mc">Pionowy · min 18 mm / 64 px</span></div>
+        <div class="mi m3"><img src="01_logo/PNG/2m-logo-mark.png" alt="2M"><span class="mc">Sygnet · favicon 24 px</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 WARIANTY -->
+  <section id="s05">
+    <div class="sec-head"><span class="t">05 Warianty kolorystyczne</span><span class="num">Pozytyw / negatyw</span></div>
+    <div class="pn">
+      <div>
+        <div class="tile lys"><img src="01_logo/PNG/2m-logo-vertical.png" alt="2M na jasnym tle"></div>
+        <div class="vlabel"><span>Pozytyw</span><span>Na jasnym tle (Wapno / Cement)</span></div>
+      </div>
+      <div>
+        <div class="tile mork"><img src="01_logo/PNG/2m-logo-vertical-white.png" alt="2M na ciemnym tle"></div>
+        <div class="vlabel"><span>Negatyw</span><span>Na ciemnym tle (Węgiel / Kamień)</span></div>
+      </div>
+    </div>
+
+    <span class="lbl" style="display:block;margin-bottom:16px">Sygnet na kolorze</span>
+    <div class="vars">
+      <div class="var kalk"><img src="01_logo/PNG/2m-logo-mark.png" alt="2M"><span class="name">Wapno</span></div>
+      <div class="var kull"><img src="01_logo/PNG/2m-logo-mark-white.png" alt="2M"><span class="name">Węgiel</span></div>
+      <div class="var ora"><img src="01_logo/PNG/2m-logo-mark-white.png" alt="2M"><span class="name">Pomarańcz</span></div>
+      <div class="var sem"><img src="01_logo/PNG/2m-logo-mark.png" alt="2M"><span class="name">Cement</span></div>
+    </div>
+    <p class="cap">Na <b>pomarańczowym tle</b> zawsze używaj białego sygnetu (bez belki) - wariant pełny
+    ma pomarańczową belkę, która znika na pomarańczowym tle.</p>
+  </section>
+
+  <!-- 06 BLEDNE UZYCIE -->
+  <section id="s06">
+    <div class="sec-head"><span class="t">06 Błędne użycie</span><span class="num">Nigdy tak nie rób</span></div>
+    <div class="dont">
+      <div class="d"><div class="frame d-stretch"><span class="x">✕</span><img src="01_logo/PNG/2m-logo-mark.png" alt=""></div><div class="dc">Nie rozciągaj ani nie zniekształcaj</div></div>
+      <div class="d"><div class="frame d-squeeze"><span class="x">✕</span><img src="01_logo/PNG/2m-logo-mark.png" alt=""></div><div class="dc">Nie zmieniaj proporcji</div></div>
+      <div class="d"><div class="frame d-rotate"><span class="x">✕</span><img src="01_logo/PNG/2m-logo-mark.png" alt=""></div><div class="dc">Nie obracaj znaku</div></div>
+      <div class="d"><div class="frame d-color"><span class="x">✕</span><img src="01_logo/PNG/2m-logo-mark.png" alt=""></div><div class="dc">Nie zmieniaj kolorów</div></div>
+      <div class="d"><div class="frame d-busy"><span class="x">✕</span><img src="01_logo/PNG/2m-logo-mark.png" alt=""></div><div class="dc">Nie umieszczaj na niespokojnym tle</div></div>
+      <div class="d"><div class="frame d-shadow"><span class="x">✕</span><img src="01_logo/PNG/2m-logo-mark.png" alt=""></div><div class="dc">Nie dodawaj cienia / efektów</div></div>
+    </div>
+  </section>
+
+  <!-- 07 KOLORY -->
+  <section id="s07">
+    <div class="sec-head"><span class="t">07 Kolory</span><span class="num">Paleta</span></div>
+    <div class="pal">
+      <div class="ch kull"><span class="cn">Węgiel</span><span class="hex">#1C1B19</span><span class="us">Tekst · logo</span></div>
+      <div class="ch stein"><span class="cn">Kamień</span><span class="hex">#3B3A37</span><span class="us">Ciemne tła</span></div>
+      <div class="ch betong"><span class="cn">Beton</span><span class="hex">#8A867E</span><span class="us">Linie · etykiety</span></div>
+      <div class="ch sement"><span class="cn">Cement</span><span class="hex">#E7E3DC</span><span class="us">Sekcje</span></div>
+      <div class="ch kalk"><span class="cn">Wapno</span><span class="hex">#FAF8F4</span><span class="us">Tło</span></div>
+      <div class="ch ora"><span class="cn">Pomarańcz</span><span class="hex">#E5621E</span><span class="us">Akcent · CTA</span></div>
+    </div>
+    <p class="ratio">Zasada <b>90 / 10</b> - ok. 90 % neutralnych (węgiel / szarości / wapno), maks. <b>10 % pomarańczu</b> jako akcent. Nigdy pomarańcz jako duża płaszczyzna.</p>
+  </section>
+
+  <!-- 08 TYPOGRAFIA -->
+  <section id="s08">
+    <div class="sec-head"><span class="t">08 Typografia</span><span class="num">Hanken Grotesk</span></div>
+    <div class="typo">
+      <div>
+        <div class="aa">Aa<span class="o">.</span></div>
+        <div class="weights">
+          <span class="w4">Regular - tekst podstawowy</span>
+          <span class="w5">Medium - etykiety</span>
+          <span class="w7">Bold - wyróżnienia</span>
+          <span class="w9">Black - nagłówki</span>
+        </div>
+      </div>
+      <div class="scale">
+        <div><span class="meta-r">H1 · 54</span><div class="h1">Hele jobben,<br><span class="o">ett firma.</span></div></div>
+        <div><span class="meta-r">H2 · 32</span><div class="h2">Doświadczone ręce do całego zlecenia</div></div>
+        <div><span class="meta-r">Tekst · 17</span><div class="bd">Doświadczeni fachowcy, którzy biorą cały zakres - od pierwszej rozmowy po ostatnią deskę. Zawsze stawiamy klienta na pierwszym miejscu i informujemy Cię na bieżąco.</div></div>
+        <div><span class="meta-r">Etykieta · 12</span><div class="lab">01 - Usługi · Ciesielstwo · Dekarstwo · Blacharstwo</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 LISTA PLIKOW -->
+  <section id="s09">
+    <div class="sec-head"><span class="t">09 Lista plików</span><span class="num">Dostarczone pliki</span></div>
+    <div class="files">
+      <div class="f"><span class="nm">2m-logo-horizontal</span><span class="ty">PNG · pozytyw</span></div>
+      <div class="f"><span class="nm">2m-logo-horizontal-white</span><span class="ty">PNG · negatyw</span></div>
+      <div class="f"><span class="nm">2m-logo-vertical</span><span class="ty">PNG · pozytyw</span></div>
+      <div class="f"><span class="nm">2m-logo-vertical-white</span><span class="ty">PNG · negatyw</span></div>
+      <div class="f"><span class="nm">2m-logo-mark</span><span class="ty">PNG · pozytyw</span></div>
+      <div class="f"><span class="nm">2m-logo-mark-white</span><span class="ty">PNG · negatyw</span></div>
+      <div class="f"><span class="nm">2m-logo-vertical-clearspace</span><span class="ty">PNG · strefa ochronna</span></div>
+      <div class="f"><span class="nm">2m-logo-mark-clearspace</span><span class="ty">PNG · strefa ochronna</span></div>
+      <div class="f"><span class="nm">2m-logo-…-mono-black</span><span class="ty">SVG · PNG · jeden kolor</span></div>
+      <div class="f"><span class="nm">2m-logo-…-mono-white</span><span class="ty">SVG · PNG · jeden kolor</span></div>
+      <div class="f"><span class="nm">2m-logo-construction</span><span class="ty">PNG · konstrukcja</span></div>
+      <div class="f"><span class="nm">favicon.svg / .ico</span><span class="ty">+ 16-512 px · apple-touch</span></div>
+    </div>
+    <p class="cap">Każdy wariant dostarczony jako <b>PNG</b> (ekran), <b>JPG</b> (biuro / dokumenty) i
+    <b>SVG</b> (wektor do web i dużych formatów). Dodatkowo zbiorczy <b>wektorowy PDF</b> ze wszystkimi
+    wariantami (<i>2m-logo-alle.pdf</i>, 8 stron).</p>
+    <div class="todo">
+      <b>Komplet.</b> Wszystkie warianty w pozytywie, negatywie i <b>mono</b> (cały czarny / cały biały
+      z belką w tym samym kolorze) do druku jednokolorowego, grawerowania i folii - plus pełny pakiet
+      favicon (SVG, ICO, 16-512 px i apple-touch-icon).
+    </div>
+  </section>
+
+  <!-- 10 ZASTOSOWANIA -->
+  <section id="s10">
+    <div class="sec-head"><span class="t">10 Zastosowania</span><span class="num">Mockupy</span></div>
+    <div class="mockups">
+      <div class="m wide"><img src="mockup/2m-mockup-bil-gate.png" alt="Oklejenie Ford Transit Custom"><div class="mcap">Oklejenie auta - Ford Transit Custom</div></div>
+      <div class="m wide"><img src="mockup/2m-mockup-byggeskilt.png" alt="Tablica budowy"><div class="mcap">Tablica budowy - „Her bygger"</div></div>
+      <div class="m"><img src="mockup/2m-mockup-hjelm-front.png" alt="Kask przód"><div class="mcap">Kask - przód</div></div>
+      <div class="m"><img src="mockup/2m-mockup-hjelm-side.png" alt="Kask bok"><div class="mcap">Kask - bok</div></div>
+      <div class="m"><img src="mockup/2m-mockup-jakke.png" alt="Kurtka robocza"><div class="mcap">Kurtka robocza</div></div>
+      <div class="m"><img src="mockup/2m-mockup-visittkort.png" alt="Wizytówka"><div class="mcap">Wizytówka</div></div>
+      <div class="m wide"><img src="mockup/2m-mockup-kopper.png" alt="Kubki"><div class="mcap">Kubki</div></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>2M Håndverk AS · Org.nr 935 991 498</span>
+    <span>Identyfikacja: GMERK · 2026</span>
+  </div>
+
+</div>
+</body>
+</html>
